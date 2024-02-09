@@ -1,0 +1,40 @@
+﻿@page "/result/{ticket}"
+@using Sve.Blazor.InfiniteScroll.Components
+@*observerTarget to decide when trigger inf scroll!*@
+@using BootstrapBlazor
+@inject IPoetryStorage _poetryStorage
+@inject IFavoriteStorage _favoriteStorage
+@inject INavigationService _navigationService
+@inject IParcelBoxService _parcelBoxService
+@inject ToastService ToastService
+
+
+
+<InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="_=>LoadMoreAsync()" >
+    @foreach(var poetry in _poetries)
+    {
+        <Card>
+            <BodyTemplate>
+                <div @onclick="() => OnClick(poetry)">
+                    <span style="font-weight: bold; color: #0078d4">@poetry.Name</span>
+                    <div class="shim-2xs"></div>
+                    @poetry.Dynasty @poetry.Author
+                    <div class="shim-2xs"></div>
+                    
+                </div>
+                <div class="row d-flex justify-content-between">
+                    <div class="col-10" @onclick="() => OnClick(poetry)">@poetry.Snippet</div>
+                    <div class="col-auto">
+                        <Button Text="删除" Color="Color.Danger" @onclick="() => RemovePoetryAsync(poetry.Id,poetry.Name)">
+                        </Button>
+                    </div>
+                </div>
+            </BodyTemplate>
+        </Card>
+        <div class="shim-xl"></div>
+    }
+    <div id="observerTarget" class=text-center>
+        <strong>@_status</strong>
+    </div>
+    <div class="shim-2xl"></div>
+</InfiniteScroll>

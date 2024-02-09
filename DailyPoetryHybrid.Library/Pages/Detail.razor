@@ -1,0 +1,37 @@
+﻿@page "/detail/{id}"
+@inject IPoetryStorage _poetryStorage
+@inject IFavoriteStorage _favoriteStorage
+
+@if (_isLoadingPoetry)
+{
+    <div class="text-center">
+        <div class="shim-2xl"></div>
+        <Spinner></Spinner>
+        <div class="shim-xl"></div>
+        <div>Loading...</div>
+    </div>
+}
+else
+{
+    <h1 style="color:#0078d4">@_poetry.Name</h1>
+    <div class="shim-xl"></div>
+    <h3>@_poetry.Dynasty · @_poetry.Author</h3>
+
+    <div class="shim-2xl"></div>
+    <h3>@(new MarkupString(_poetry.Content.Replace(Environment.NewLine, "<br />")))
+    </h3>
+    <div class="shim-2xl"></div>
+
+    @if (_isLoadingFavorite)
+    {
+        <div><Spinner></Spinner></div>
+    }
+    else
+    {
+        <div>
+            <Switch OnColor="Color.Success" OnText="已收藏" OffText="未收藏"
+                    OnValueChanged="_ => FavoriteValueChanged()" @bind-Value="_favorite.IsFavorite"
+                    IsDisabled="_isDisabled" />
+        </div>
+    }
+}

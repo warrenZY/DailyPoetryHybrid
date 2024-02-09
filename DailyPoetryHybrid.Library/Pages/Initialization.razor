@@ -1,0 +1,26 @@
+﻿@page "/initialization"
+@inject IPoetryStorage _poetryStorage
+@inject IFavoriteStorage _favoriteStorage
+@inject INavigationService _navigationService
+<div class="text-center">
+    <div class="shim-2xl"></div>
+    <h1><Spinner></Spinner></h1>
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        if (!_poetryStorage.IsInitialized)
+        {
+            await _poetryStorage.InitializeAsync();
+        }
+
+        if (!_favoriteStorage.IsInitialized)
+        {
+            await _favoriteStorage.InitializeAsync();
+        }
+
+        await Task.Delay(1000);
+        _navigationService.NavigateTo(NavigationServiceConstants.TodayPage);
+    }
+}

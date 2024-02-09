@@ -1,0 +1,25 @@
+﻿@*
+<Router AppAssembly="@typeof(MauiProgram).Assembly"
+        AdditionalAssemblies="@(new[]  {typeof(Library.Models.Poetry).Assembly})">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(Components.Layout.MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+</Router>
+*@
+<BootstrapBlazorRoot>
+    <Router AppAssembly="@typeof(App).Assembly"
+            AdditionalAssemblies="@(new[]  {typeof(Library.Models.Poetry).Assembly})">
+        <Found Context="routeData">
+            <PageTitle>Title</PageTitle>
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(Components.Layout.MainLayout)" />
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+    <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(Components.Layout.MainLayout)">
+                <p>正在玩命开发中 ...</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</BootstrapBlazorRoot>

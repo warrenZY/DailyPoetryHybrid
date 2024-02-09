@@ -1,0 +1,63 @@
+﻿@page "/today"
+@inject ITodayPoetryService _todayPoetryService
+@inject ITodayImageService _todayImageService
+@inject IPoetryStorage _poetryStorage
+@using Microsoft.JSInterop
+@inject IJSRuntime _jsRuntime
+@*use to stream image*@
+@inject ToastService ToastService
+
+<div style="background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%); padding: 1.5em; color: white">
+    @if (_isLoading)
+    {
+        <h1><Spinner></Spinner></h1>
+    }
+    else
+    {
+        <h1>@_todayPoetry.Snippet</h1>
+        <div class="shim-xl" />
+        <h3>@_todayPoetry.Dynasty · @_todayPoetry.Author</h3>
+        <h3>《@_todayPoetry.Name》</h3>
+
+        <div style="display: @(_todayPoetry.Source == TodayPoetrySources.Jinrishici ? "block" : "hidden")">
+            <div class="shim-xl" />推荐自
+            <a href="https://www.jinrishici.com/" target="_blank">今日诗词</a>
+        </div>
+
+        <div class="shim-xl" />
+        @if (!_isShowDetail)
+        {
+            <div class="row">
+                <div class="col-auto">
+                    <Button OnClick="() => { _isShowDetail = true;}">查看全文</Button>
+                    <Button OnClick="() =>SaveTodayPoetryAsync()">保存到数据库</Button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-auto">
+                    <Button OnClick="() => { _isShowDetail = false;}">收起全文</Button>
+                    <Button OnClick="() =>SaveTodayPoetryAsync()">保存到数据库</Button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="shim-2xl"></div>
+                <div class="col-12 col-xl-11">
+                    <h3>@(new MarkupString(_todayPoetry.Content.Replace(Environment.NewLine, "<br />")))</h3>
+                    @*replace /n to <br>, markupstring let <br> to be process as htm*@
+                </div>
+            </div>
+        }
+    }
+</div>
+<img id="image"
+     class="w-100" />
+<div class="shim-xs"></div>
+<p>
+    <a href="@_todayImage.CopyrightLink"
+       target="_blank">
+        @_todayImage.Copyright
+    </a>
+</p>

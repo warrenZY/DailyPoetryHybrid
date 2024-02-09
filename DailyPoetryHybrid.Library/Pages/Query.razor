@@ -1,0 +1,38 @@
+﻿@page "/query"
+@inject INavigationService _navigationService
+
+@foreach (var filter in _filters)
+{
+    <Card>
+        <BodyTemplate>
+            <div class="row">
+                <div class="col-auto">
+                    <Dropdown Items="_filterTypeItems"
+                              @bind-Value="filter.QueryFilterTypePropertyName">
+                    </Dropdown>
+                </div>
+                <div class="col">
+                    <BootstrapInput @bind-Value="filter.Content"></BootstrapInput>
+                </div>
+            </div>
+            <div class="shim-sm"></div>
+            <div class="row">
+                <div class="col-auto">
+                    <Button Text="添加"
+                            OnClick="() => AddFilter(filter)">
+                    </Button>
+                </div>
+                <div class="col-auto">
+                    <Button Text="删除"
+                            Color="Color.Danger"
+                            OnClick="() => RemoveFilter(filter)">
+                    </Button>
+                </div>
+            </div>
+        </BodyTemplate>
+    </Card>
+    <div class="shim-xl"></div>
+}
+
+<Button Text="搜索" OnClick="Search">
+</Button>

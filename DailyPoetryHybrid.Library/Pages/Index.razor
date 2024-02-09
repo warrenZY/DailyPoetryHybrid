@@ -1,0 +1,17 @@
+﻿@page "/"
+@inject IPoetryStorage _poetryStorage
+@inject INavigationService _navigationService
+
+@code{
+    protected override void OnInitialized()
+    {
+        if (!_poetryStorage.IsInitialized)
+        {
+            _navigationService.NavigateTo(NavigationServiceConstants.InitializationPage);
+        }
+        else
+        {
+            _navigationService.NavigateTo(NavigationServiceConstants.TodayPage);
+        }
+    }
+}

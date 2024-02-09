@@ -1,0 +1,39 @@
+﻿@page "/favorite"
+@inject IFavoriteStorage _favoriteStorage
+@inject IPoetryStorage _poetryStorage
+@inject INavigationService _navigationService
+@inject ToastService ToastService
+@inject SwalService SwalService
+@using DailyPoetryHybrid.Library.Models
+
+@foreach (var poetryFavorite in _poetryFavorites)
+{
+    <Card>
+        <BodyTemplate>
+            <div @onclick="() => OnClick(poetryFavorite.Poetry)">
+                <span style="font-weight:bold; color:#0078d4">@poetryFavorite.Poetry.Name</span>
+                <div class="shim-2xs"></div>
+                @poetryFavorite.Poetry.Dynasty @poetryFavorite.Poetry.Author
+                <div class="shim-2xs"></div>
+            </div>
+            <div class="row d-flex justify-content-between">
+                <div class="col-9" @onclick="() => OnClick(poetryFavorite.Poetry)">
+                    @poetryFavorite.Poetry.Content.Substring(0, poetryFavorite.Poetry.Content.IndexOf("。"))
+                </div>
+                <div class="col-auto">
+                    <Button Text="删除" Color="Color.Danger"
+                            @onclick="() => RemovePoetryAsync(poetryFavorite.Poetry.Id,poetryFavorite.Poetry.Name)">
+                    </Button>
+                    <Button Text="取消收藏" Color="Color.Danger"
+                            @onclick="() => RemoveFavoriteAsync(poetryFavorite.Favorite.PoetryId,poetryFavorite.Poetry.Name)">
+                    </Button>
+                </div>
+            </div>
+        </BodyTemplate>
+    </Card>
+    <div class="shim-xl"></div>
+}
+<div id="observerTarget" class=text-center>
+    <strong>@_status</strong>
+</div>
+<div class="shim-2xl"></div>
