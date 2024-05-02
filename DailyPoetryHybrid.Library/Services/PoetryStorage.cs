@@ -28,7 +28,7 @@ public class PoetryStorage : IPoetryStorage
         _alertService = alertService;
     }
     
-    public bool IsInitialized => _preferenceStorage.Get("Key", 0) == PoetryStorageConstant.Version;
+    public bool IsInitialized => _preferenceStorage.Get(PoetryStorageConstant.DbVersionKey, 0) == PoetryStorageConstant.Version;
     //see if DbVersion == 1, defalut 0.
 
     public async Task InitializeAsync()
@@ -44,8 +44,8 @@ public class PoetryStorage : IPoetryStorage
 
     }
 
-    public async Task<Poetry> GetPoetryAsync(int id) =>
-        await Connection.Table<Poetry>().FirstOrDefaultAsync(p => p.Id == id);
+    public Task<Poetry> GetPoetryAsync(int id) =>
+        Connection.Table<Poetry>().FirstOrDefaultAsync(p => p.Id == id);
 
 
     public async Task<IEnumerable<Poetry>> GetPoetriesAsync(

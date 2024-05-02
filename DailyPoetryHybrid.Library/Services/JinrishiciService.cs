@@ -48,7 +48,7 @@ public class JinrishiciService : ITodayPoetryService
         {
             await _alertService.AlertToastAsync(BootstrapBlazor.Components.ToastCategory.Error,
                 ErrorMessage.HttpClientErrorTitle,
-                ErrorMessage.GetHttpClientError(Server, ex.Message), default);
+                ErrorMessage.GetHttpClientError(Server, ex.Message), 4000);
             //得不到诗词的情况
             return await GetRandomPoetryAsync();
             //随机从数据库中取一个诗词

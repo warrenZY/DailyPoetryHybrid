@@ -6,7 +6,7 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
-  <Identity Name="maui-package-dailypoetry" Publisher="CN=User Name" Version="1.2.1.0" />
+  <Identity Name="maui-package-dailypoetry" Publisher="CN=29660" Version="1.2.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="5D9B6909-C8CE-41AE-8653-88AB04D972CC" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
